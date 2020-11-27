@@ -1,5 +1,5 @@
 <div>
-	sad
+	
 </div>
 <script>
 	export default {

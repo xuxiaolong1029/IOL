@@ -5,7 +5,6 @@
 				<image src="../../static/logo.png" mode=""></image>
 			</text>
 		</view>
-		<view class="radius"></view>
 		<view class="login-form">
 			<view class="accout uni-input-wrapper">
 				<input type="text" v-model="inputForm.username" placeholder="请输入账号">
@@ -61,9 +60,10 @@
 	.page{
 		width: 100vw;
 		.login-logo{
-			width: 100%;position: relative;height:300rpx;
-			background-color:#5777FE;
-			text-align: center;
+			width: 100%;position: relative;height:400rpx;
+			background-color:#5777FE;text-align: center;
+			border-bottom-right-radius:100rpx;
+			border-bottom-left-radius:100rpx;
 			.logo{
 				background: #fff;width: 120rpx;height: 120rpx;margin-top: 100rpx;
 				display:inline-block;padding:10rpx;border-radius: 50%;box-sizing: content-box;
@@ -72,16 +72,11 @@
 				}
 			}
 		}
-		.radius{
-			width: 100%;height:100rpx;
-			border-bottom-right-radius:400rpx;
-			background-color:#5777FE;
-			border-bottom-left-radius:400rpx;
-		}
 		.login-form{
 			padding: 40rpx 50rpx;
 			input{
 				height: 70rpx;border-bottom: 1rpx solid #ccc;margin-top: 25rpx;caret-color:#5777FE;
+				padding-left: 20rpx;
 				&:focus{
 					border-bottom:1rpx solid #5777FE;
 				}

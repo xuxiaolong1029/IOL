@@ -1,5 +1,5 @@
 {
-    "name" : "hello-uniapp",
+    "name" : "IOL",
     "appid" : "__UNI__BC531BE",
     "description" : "测试版本",
     "versionName" : "1.0.0",
@@ -111,16 +111,16 @@
     },
     "h5" : {
         "router" : {
-            "mode" : "hash"
+            "mode" : "history"
         },
         "devServer" : {
             "port" : 8888,
             "disableHostCheck" : true,
             "proxy" : {
                 "/sys-auth" : {
-                    "target" : "http://192.168.50.129:3000",
+                    "target" : "https://convdev.clear-sz.com",
                     "changeOrigin" : true,
-                    "secure" : false
+                    "secure" : true
                 }
             }
         }
