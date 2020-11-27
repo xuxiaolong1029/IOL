@@ -109,21 +109,20 @@
     "uniStatistics" : {
         "enable" : false
     },
-	"h5" : {
-	        "router" : {
-	            "mode" : "hash"
-	        },
-	        "devServer" : {
-	            "port" : 8080,
-	            "disableHostCheck" : true,
-	            "proxy" : {
-	                "/sys-auth" : {
-	                    "target" : "http://192.168.50.129:3000",
-	                    "changeOrigin" : true,
-	                    "secure" : false
-	                }
-	            }
-	        }
-	        
-	    }
+    "h5" : {
+        "router" : {
+            "mode" : "hash"
+        },
+        "devServer" : {
+            "port" : 8888,
+            "disableHostCheck" : true,
+            "proxy" : {
+                "/sys-auth" : {
+                    "target" : "http://192.168.50.129:3000",
+                    "changeOrigin" : true,
+                    "secure" : false
+                }
+            }
+        }
+    }
 }

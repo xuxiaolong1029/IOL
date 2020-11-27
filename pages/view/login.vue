@@ -21,6 +21,7 @@
 </template>
 
 <script>
+	import http from '../../plugins/network/index.js'
 	export default {
 		data() {
 			return {
@@ -32,18 +33,24 @@
 		},
 		methods:{
 			loginButton(){
-				uni.request({
-				    url: '/sys-auth/user/login', //仅为示例，并非真实接口地址。
-				    data:this.inputForm,
-					header: {
-					    'Content-Type': "application/json;charset=UTF-8"
-					},
-					method:'POST',
-				    success: (res) => {
-				        console.log(res.data);
-						//this.$router.push({path:'/pages/view/index/index'})
-				        //this.text = 'request success';
-				    }
+				http.server({
+					url: '/sys-auth/user/login',
+					method: 'POST',
+					data: this.inputForm
+				}).then(res => {
+					if(res.code === 200){
+						uni.showToast({
+							title: res.message,
+							icon:'none',//不要图标
+							duration: 1000//1后消失
+						});
+					}else{
+						uni.showToast({
+							title: res.message,
+							icon:'none',//不要图标
+							duration: 1000//1后消失
+						});
+					}
 				});
 			}
 		}
@@ -76,7 +83,7 @@
 			input{
 				height: 70rpx;border-bottom: 1rpx solid #ccc;margin-top: 25rpx;caret-color:#5777FE;
 				&:focus{
-				    border-bottom:1rpx solid #5777FE;
+					border-bottom:1rpx solid #5777FE;
 				}
 			}
 			button{
