@@ -1,6 +1,7 @@
+const baseUrl = process.env.NODE_ENV==='development'?'':'https://convdev.clear-sz.com'
 const server = (optitons, data) => {
     let httpDefaultOpts = {
-        url:optitons.url,
+        url:baseUrl+optitons.url,
         data:optitons.data,
         beforeSend :function(xmlHttp){
             xmlHttp.setRequestHeader("If-Modified-Since","0"); 
@@ -17,24 +18,20 @@ const server = (optitons, data) => {
         dataType: 'json',
     }
     let promise = new Promise(function(resolve, reject) {
-        uni.request(httpDefaultOpts).then(
-            (res) => {
-				let data = res[1];
-				if(data.statusCode===200){
-					resolve(data.data)
-				}else{
-					uni.showToast({
-						title: data.errMsg,
-						icon:'none',//不要图标
-						duration: 1000//1后消失
-					});
-				}
-            }
-        ).catch(
-            (response) => {
-                reject(response)
-            }
-        )
+        uni.request(httpDefaultOpts).then((res) => {
+			let data = res[1];
+			if(data.statusCode===200){
+				resolve(data.data)
+			}else{
+				uni.showToast({
+					title: data.errMsg,
+					icon:'none',//不要图标
+					duration: 1000//1后消失
+				});
+			}
+		}).catch((response) => {
+            reject(response)
+        })
     })
     return promise
 };

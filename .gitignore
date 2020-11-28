@@ -12,6 +12,7 @@
 *.njsproj
 *.sln
 *.sw*
+/unpackage
 
 
 #Mac系统中用来存储文件夹的显示属性的文件

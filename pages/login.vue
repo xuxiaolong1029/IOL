@@ -1,16 +1,16 @@
 <template>
 	<view class="page">
 		<view class="login-logo">
-			<text class="logo">
-				<image src="../../static/logo.png" mode=""></image>
-			</text>
+			<view class="logo">
+				<image src="../static/logo.png" mode=""></image>
+			</view>
 		</view>
 		<view class="login-form">
 			<view class="accout uni-input-wrapper">
-				<input type="text" v-model="inputForm.username" placeholder="请输入账号">
+				<input type="text" placeholder-style="color:#ccc" v-model="inputForm.username" placeholder="请输入账号">
 			</view>
 			<view class="password uni-input-wrapper">
-				<input type="password" v-model="inputForm.password" placeholder="请输密码">
+				<input type="password" placeholder-style="color:#ccc" v-model="inputForm.password" placeholder="请输密码">
 			</view>
 			<view>
 				<button @click="loginButton">登录</button>
@@ -20,19 +20,38 @@
 </template>
 
 <script>
-	import http from '../../plugins/network/index.js'
+	import http from '../plugins/network/index.js'
 	export default {
 		data() {
 			return {
 				inputForm:{
-					username:'',
-					password:''
+					username:'admin',
+					password:'admin'
 				}
 			};
 		},
 		methods:{
 			loginButton(){
-				http.server({
+				if(!this.inputForm.username){
+					uni.showToast({
+						title: "请输入账号",
+						icon:'none',//不要图标
+						duration: 1000//1后消失
+					});
+					return
+				}
+				if(!this.inputForm.password){
+					uni.showToast({
+						title: "请输入密码",
+						icon:'none',//不要图标
+						duration: 1000//1后消失
+					});
+					return
+				}
+				uni.switchTab({
+				  url: '/pages/home/index'
+				});
+				/* http.server({
 					url: '/sys-auth/user/login',
 					method: 'POST',
 					data: this.inputForm
@@ -50,7 +69,7 @@
 							duration: 1000//1后消失
 						});
 					}
-				});
+				}); */
 			}
 		}
 	}
@@ -75,11 +94,8 @@
 		.login-form{
 			padding: 40rpx 50rpx;
 			input{
-				height: 70rpx;border-bottom: 1rpx solid #ccc;margin-top: 25rpx;caret-color:#5777FE;
+				height: 70rpx;border-bottom: 1rpx solid #eee;margin-top: 25rpx;caret-color:#5777FE;
 				padding-left: 20rpx;
-				&:focus{
-					border-bottom:1rpx solid #5777FE;
-				}
 			}
 			button{
 				background-color:#5777FE;color: #fff;margin-top:180rpx;
