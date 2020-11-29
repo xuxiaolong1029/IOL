@@ -9,7 +9,7 @@
 					</view>
 					<view class="form-column-list">
 						<text>车牌</text>
-						<input class="form-column-input" v-model="oilForm.cart_type" name="cart_num" placeholder="请输入车牌" />
+						<input class="form-column-input" v-model="oilForm.cart_num" name="cart_num" placeholder="请输入车牌" />
 					</view>
 					<view class="form-column-list">
 						<text>到达时间</text>
@@ -86,6 +86,9 @@
 				startDate:getDate('start'),
 				endDate:getDate('end'),
 			}
+		},
+		mounted(){
+			
 		},
 		methods: {
 			formSubmit: function(e) {

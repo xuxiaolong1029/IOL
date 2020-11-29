@@ -8,7 +8,7 @@
 			</view>
 		</view>
 		<view class="logout">
-			<button type="primary">退出登录</button>
+			<button type="primary" @click="logout">退出登录</button>
 		</view>
 	</view>
 </template>
@@ -28,33 +28,72 @@
 
 		},
 		methods: {
-
+			logout() {
+				uni.showModal({
+					title: '提示',
+					content: '是否退出',
+					success: function(res) {
+						if (res.confirm) {
+							uni.navigateTo({
+								url: "/pages/login"
+							});
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}
+				});
+			}
 		}
 	}
 </script>
 
 <style lang="less" scoped>
 	.page-person {
-		width: 100%;height: calc(100vh - 240rpx);overflow-y: hidden;position: relative;
+		width: 100%;
+		height: calc(100vh - 240rpx);
+		overflow-y: hidden;
+		position: relative;
+
 		.person-content {
-			width: 100%;text-align: center;padding-top: 100rpx;
+			width: 100%;
+			text-align: center;
+			padding-top: 100rpx;
+
 			.person-logo {
-				width: 150rpx;height: 150rpx;border-radius: 50%;padding: 20rpx;background-color: #ccc;
+				width: 150rpx;
+				height: 150rpx;
+				border-radius: 50%;
+				padding: 20rpx;
+				background-color: #ccc;
+
 				image {
 					height: 100%;
 					width: 100%;
 				}
 			}
+
 			.person-text {
-				padding-top: 40rpx;text-align: left;padding-left:250rpx;
+				padding-top: 40rpx;
+				text-align: left;
+				padding-left: 250rpx;
+
 				.label {
-					width: 100%;display: block;line-height:80rpx;font-size:40rpx;height: 80rpx;
+					width: 100%;
+					display: block;
+					line-height: 80rpx;
+					font-size: 40rpx;
+					height: 80rpx;
 				}
 			}
 
 		}
-		.logout{
-			position: absolute;bottom:20rpx;padding: 20rpx 80rpx;width: 100%;box-sizing: border-box;
+
+		.logout {
+			position: absolute;
+			bottom: 20rpx;
+			padding: 20rpx 80rpx;
+			width: 100%;
+			box-sizing: border-box;
 		}
 	}
 </style>

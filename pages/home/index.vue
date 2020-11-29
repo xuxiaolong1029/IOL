@@ -83,7 +83,7 @@
 	.content {
 		.swiper {
 			width: 100%;
-			height: 300rpx;
+			height:400rpx;
 
 			.swiper-item {
 				display: block;
