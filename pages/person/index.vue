@@ -62,10 +62,8 @@
 			.person-logo {
 				width: 150rpx;
 				height: 150rpx;
-				border-radius: 50%;
+				border-radius:100rpx;
 				padding: 20rpx;
-				background-color: #ccc;
-
 				image {
 					height: 100%;
 					width: 100%;

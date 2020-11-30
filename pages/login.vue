@@ -57,10 +57,8 @@
 					data: this.inputForm
 				}).then(res => {
 					if(res.code === 200){
-						uni.showToast({
-							title: res.message,
-							icon:'none',//不要图标
-							duration: 1000//1后消失
+						uni.switchTab({
+						  url: '/pages/home/index'
 						});
 					}else{
 						uni.showToast({
@@ -84,10 +82,10 @@
 			border-bottom-right-radius:100rpx;
 			border-bottom-left-radius:100rpx;
 			.logo{
-				background: #fff;width: 120rpx;height: 120rpx;margin-top: 100rpx;
+				background: #fff;width: 160rpx;height: 160rpx;margin-top: 100rpx;
 				display:inline-block;padding:10rpx;border-radius: 50%;box-sizing: content-box;
 				image{
-					width: 100rpx;height: 100rpx;margin-top:10rpx;
+					width: 140rpx;height: 140rpx;margin-top:10rpx;border-radius: 50%;
 				}
 			}
 		}

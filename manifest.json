@@ -1,5 +1,5 @@
 {
-    "name" : "IOL",
+    "name" : "换油预约",
     "appid" : "__UNI__BC531BE",
     "description" : "测试版本",
     "versionName" : "1.0.0",
@@ -118,7 +118,7 @@
             "disableHostCheck" : true,
             "proxy" : {
                 "/sys-auth" : {
-                    "target" : "https://convdev.clear-sz.com",
+                    "target" : "http://192.168.50.129:3000",
                     "changeOrigin" : true,
                     "secure" : true
                 }
