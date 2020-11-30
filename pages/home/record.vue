@@ -98,9 +98,9 @@
 
 <style lang="less" scoped>
 	.page-record {
-		width: 100%;height: calc(100vh - 90rpx);position: relative;
+		width: 100%;height: calc(100vh - 90rpx);position: relative;padding:20rpx 0;box-sizing: border-box;overflow-y: hidden;
 		.record-content {
-			padding: 20rpx;height: 100%;
+			height:100%;overflow-y: auto;padding:0 20rpx;
 			.record-team {
 				width: 100%;margin-bottom: 20rpx;border: 1rpx #c8c7cc solid;
 				padding:20rpx 25rpx;box-sizing: border-box;border-radius:30rpx;
