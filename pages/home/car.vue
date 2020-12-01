@@ -14,34 +14,76 @@
 	export default {
 		data() {
 			return {
-
 				carTeamList: [{
-						team_num:'001',
+						team_num: '001',
 						team_nume: "油田A队",
 						team_leader: "队长一"
 					},
 					{
-						team_num:'001',
-						team_nume: "油田B队",
-						team_leader: "队长二"
-					},
-					{
-						team_num:'001',
+						team_num: '001',
 						team_nume: "油田C队",
 						team_leader: "队长三"
 					},
 					{
-						team_num:'001',
+						team_num: '001',
 						team_nume: "油田D队",
 						team_leader: "队长四"
 					},
 					{
-						team_num:'001',
+						team_num: '001',
+						team_nume: "油田E队",
+						team_leader: "队长五"
+					}, {
+						team_num: '001',
+						team_nume: "油田C队",
+						team_leader: "队长三"
+					},
+					{
+						team_num: '001',
+						team_nume: "油田D队",
+						team_leader: "队长四"
+					},
+					{
+						team_num: '001',
 						team_nume: "油田E队",
 						team_leader: "队长五"
 					},
 					{
-						team_num:'001',
+						team_num: '001',
+						team_nume: "油田B队",
+						team_leader: "队长二"
+					},
+					{
+						team_num: '001',
+						team_nume: "油田C队",
+						team_leader: "队长三"
+					},
+					{
+						team_num: '001',
+						team_nume: "油田D队",
+						team_leader: "队长四"
+					},
+					{
+						team_num: '001',
+						team_nume: "油田E队",
+						team_leader: "队长五"
+					}, {
+						team_num: '001',
+						team_nume: "油田C队",
+						team_leader: "队长三"
+					},
+					{
+						team_num: '001',
+						team_nume: "油田D队",
+						team_leader: "队长四"
+					},
+					{
+						team_num: '001',
+						team_nume: "油田E队",
+						team_leader: "队长五"
+					},
+					{
+						team_num: '001',
 						team_nume: "油田F队",
 						team_leader: "队长六"
 					}
@@ -54,7 +96,7 @@
 		methods: {
 			goDetail(row) {
 				uni.navigateTo({
-					url: "/pages/home/components/car_list?team_num="+row.team_num
+					url: "/pages/home/components/car_list?team_num=" + row.team_num
 				});
 			}
 		}
@@ -64,12 +106,15 @@
 <style lang="less" scoped>
 	.page-car {
 		width: 100%;
-		height: calc(100vh - 90rpx);
+		height: 100vh;
 		overflow-y: hidden;
 		position: relative;
 
 		.car-content {
 			padding: 20rpx;
+			height: 100%;
+			overflow: auto;
+
 			.car-team {
 				width: 100%;
 				height: 100rpx;

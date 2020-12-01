@@ -64,7 +64,7 @@
 <style lang="less" scoped>
 	.page-car {
 		width: 100%;
-		height: calc(100vh - 90rpx);
+		height:100vh;
 		overflow-y: hidden;
 		position: relative;
 

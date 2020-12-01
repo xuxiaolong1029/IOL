@@ -19,11 +19,11 @@
 					</view>
 					<view class="form-column-list">
 						<text>司机姓名</text>
-						<input class="form-column-input" v-model="oilForm.cart_name" name="cart_name" placeholder="请输入司机姓名" />
+						<input class="form-column-input" v-model="oilForm.driver_name" name="driver_name" placeholder="请输入司机姓名" />
 					</view>
 					<view class="form-column-list">
 						<text>联系电话</text>
-						<input class="form-column-input" v-model="oilForm.cart_mobile" name="cart_mobile" placeholder="请输入联系电话" />
+						<input class="form-column-input" v-model="oilForm.driver_mobile" name="driver_mobile" placeholder="请输入联系电话" />
 					</view>
 				</view>	
 				<view class="form-auditing-steps">
@@ -49,9 +49,9 @@
 		let day = date.getDate();
 	
 		if (type === 'start') {
-			year = year - 60;
+			year = year;
 		} else if (type === 'end') {
-			year = year + 2;
+			year = year + 5;
 		}
 		month = month > 9 ? month : '0' + month;;
 		day = day > 9 ? day : '0' + day;
@@ -66,9 +66,11 @@
 			return {
 				active:0,
 				oilForm:{
-					date: getDate({
-						format: true
-					}),
+					cart_type:'',
+					cart_num:'',
+					date:'',
+					driver_name:'',
+					driver_mobile:''
 				},
 				list2: [{
 					title: '审批人-小队副职',
@@ -94,7 +96,7 @@
 			formSubmit: function(e) {
 				console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
 				//定义表单规则
-				var rule = [{
+				var rules = [{
 						name: "cart_type",
 						checkType: "string",
 						errorMsg: "请输入车型"
@@ -109,32 +111,31 @@
 						checkType: "string",
 						errorMsg: "请输入到达时间"
 					},{
-						name: "cart_name",
+						name: "driver_name",
 						checkType: "string",
 						errorMsg: "请输入司机姓名"
 					},{
-						name: "cart_mobile",
+						name: "driver_mobile",
 						checkType: "string",
 						errorMsg: "请输入联系电话"
 					},
 				];
-				//进行表单检查
-				var formData = e.detail.value;
-				var checkRes = graceChecker.check(formData, rule);
-				if (checkRes) {
-					uni.showToast({
-						title: "验证通过!",
-						icon: "none"
-					});
-				} else {
-					uni.showToast({
-						title: graceChecker.error,
-						icon: "none"
-					});
+				for(let item of rules){
+					if(!this.oilForm[item.name]){
+						uni.showToast({
+							title:item.errorMsg,
+							icon: "none"
+						});
+						return
+					}
 				}
+				uni.showToast({
+					title:'验证完成',
+					icon: "none"
+				});
 			},
-			formReset: function(e) {
-				console.log('清空数据')
+			bindDateChange(v){
+				this.oilForm.date = v.detail.value;
 			}
 		}
 	}
@@ -142,14 +143,14 @@
 
 <style lang="less" scoped>
 	.page-oil{
-		width: 100%;height: calc(100vh - 110rpx);
+		width: 100%;height:100vh;
 		.page-oil-content{
 			.form-column{
 				padding: 20rpx;
 				.form-column-list{
 					width: 100%;height:80rpx;line-height:80rpx;display: flex;border-bottom: 1rpx solid #c8c7cc;
-					text{
-						display: inline-block;width: 150rpx;
+					>text{
+						display: inline-block;width:180rpx;color: #666;font-size: 28rpx;
 					}
 					.form-column-input{
 						height:80rpx;line-height:80rpx;flex: 1;

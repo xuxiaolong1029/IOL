@@ -59,32 +59,20 @@
 			}
 		},
 		onLoad(option) {
-			console.log(option.id); //打印出上个页面传递的参数。
-			console.log(option.name); //打印出上个页面传递的参数。
+			
 		},
 		methods: {
-			changeIndicatorDots(e) {
-				this.indicatorDots = !this.indicatorDots
-			},
-			changeAutoplay(e) {
-				this.autoplay = !this.autoplay
-			},
-			intervalChange(e) {
-				this.interval = e.detail.value
-			},
-			durationChange(e) {
-				this.duration = e.detail.value
-			}
+			
 		}
 	}
 </script>
 
 <style lang="less" scoped>
 	.content {
+		width: 100%;height: 100vh;
 		.swiper {
 			width: 100%;
-			height:400rpx;
-
+			height: 400rpx;
 			.swiper-item {
 				display: block;
 				height: 400rpx;
@@ -103,17 +91,20 @@
 			display: flex;
 			text-align: center;
 			justify-content: space-between;
+
 			.navigator-item {
 				.img {
 					width: 120rpx;
 					height: 120rpx;
 				}
+
 				.title {
 					margin-top: 10rpx;
 					color: #333;
 					font-size: 36rpx;
 				}
-				.navigator-hover{
+
+				.navigator-hover {
 					background-color: #fff;
 				}
 			}

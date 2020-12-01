@@ -51,7 +51,7 @@
 				uni.switchTab({
 				  url: '/pages/home/index'
 				});
-				/* http.server({
+				http.server({
 					url: '/sys-auth/user/login',
 					method: 'POST',
 					data: this.inputForm
@@ -67,7 +67,7 @@
 							duration: 1000//1后消失
 						});
 					}
-				}); */
+				});
 			}
 		}
 	}

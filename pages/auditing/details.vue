@@ -69,7 +69,7 @@
 
 <style lang="less" scoped>
 	.page-auditing-details{
-		width: 100%;height:calc(100vh - 90rpx);overflow-y: hidden;position: relative;
+		width: 100%;height:100vh;overflow-y: hidden;position: relative;
 		.details-content{
 			padding: 20rpx;
 			.list{

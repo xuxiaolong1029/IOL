@@ -108,7 +108,6 @@
 		},
 		methods: {
 			onClick() {
-				debugger
 				this.$emit('clickLoadMore', {
 					detail: {
 						status: this.status,
