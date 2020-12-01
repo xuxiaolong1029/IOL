@@ -143,7 +143,7 @@
 
 <style lang="less" scoped>
 	.page-oil{
-		width: 100%;height:100vh;
+		width: 100%;
 		.page-oil-content{
 			.form-column{
 				padding: 20rpx;

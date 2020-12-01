@@ -13,43 +13,45 @@
 		</scroll-view>
 		<view class="tab-bar-line"></view>
 		<swiper class="page-tab-box" ref="swiper1" :current="tabIndex" @change="onswiperchange">
-			<swiper-item class="swiper-item" v-for="(page, index) in tabList" :key="index">
-				<view class="page-news">
-					<scroll-view class="listview" style="flex: 1;" enableBackToTop="true" scroll-y @scrolltolower="loadMore()">
-						<view class="uni-list">
-							<block v-for="(value, ind) in pageList" :key="index+'ss'+ind">
-								<view class="uni-list-cell" hover-class="uni-list-cell-hover" @click="goDetail(value,index)">
-									<view class="uni-media-list">
-										<image class="uni-media-list-logo" :src="value.img"></image>
-										<view class="uni-media-list-body">
-											<view class="uni-media-list-text-top">
-												<text>
-													{{ value.title }}
-												</text>
-												<text class="time">
-													预达：{{ value.time}}
-												</text>
-											</view>
-											<view class="uni-media-list-text-bottom">
-												<text>司机：{{ value.driver }}</text>
-												<text>车队：{{ value.team }}</text>
-											</view>
-											<view class="uni-media-list-text-bottom">
-												<text>车型：{{ value.type }}</text>
-												<text>车牌：{{ value.licensePlate }}</text>
+			<blockv-for="(page, index) in tabList" :key="index">
+				<swiper-item class="swiper-item" v-for="(page, index) in tabList" :key="index">
+					<view class="page-news">
+						<scroll-view class="listview" style="flex: 1;" enableBackToTop="true" scroll-y @scrolltolower="loadMore()">
+							<view class="uni-list">
+								<block v-for="(value, ind) in pageList" :key="index+'ss'+ind">
+									<view class="uni-list-cell" hover-class="uni-list-cell-hover" @click="goDetail(value,index)">
+										<view class="uni-media-list">
+											<image class="uni-media-list-logo" :src="value.img"></image>
+											<view class="uni-media-list-body">
+												<view class="uni-media-list-text-top">
+													<text>
+														{{ value.title }}
+													</text>
+													<text class="time">
+														预达：{{ value.time}}
+													</text>
+												</view>
+												<view class="uni-media-list-text-bottom">
+													<text>司机：{{ value.driver }}</text>
+													<text>车队：{{ value.team }}</text>
+												</view>
+												<view class="uni-media-list-text-bottom">
+													<text>车型：{{ value.type }}</text>
+													<text>车牌：{{ value.licensePlate }}</text>
+												</view>
 											</view>
 										</view>
+										<view class="uni-media-reject" v-if="value.refuse">
+											<text class="text">驳回人：{{value.refuse.person}}</text>
+											<text class="text" style="margin-top: 4px;">驳回原因：{{value.refuse.reason}}</text>
+										</view>
 									</view>
-									<view class="uni-media-reject" v-if="value.refuse">
-										<text class="text">驳回人：{{value.refuse.person}}</text>
-										<text class="text" style="margin-top: 4px;">驳回原因：{{value.refuse.reason}}</text>
-									</view>
-								</view>
-							</block>
-						</view>
-					</scroll-view>
-				</view>
-			</swiper-item>
+								</block>
+							</view>
+						</scroll-view>
+					</view>
+				</swiper-item>
+				</block>
 		</swiper>
 		<!-- 	<uni-load-more :status="status" :icon-size="16" :content-text="contentText" @clickLoadMore='clickLoadMore' /> -->
 	</view>
@@ -120,6 +122,114 @@
 							status: 0,
 						},
 						{
+							img: '../../static/ban3.png',
+							title: "待审批01",
+							licensePlate: '粤B001',
+							driver: "吴晓刚",
+							type: "重型卡车",
+							time: "2020.06.08",
+							team: "油田A队",
+							status: 0,
+						}, {
+							img: '../../static/ban2.png',
+							title: "待审批01",
+							licensePlate: '粤B001',
+							driver: "吴晓刚",
+							type: "重型卡车",
+							time: "2020.06.08",
+							team: "油田A队",
+							status: 0,
+						},{
+							img: '../../static/ban3.png',
+							title: "待审批01",
+							licensePlate: '粤B001',
+							driver: "吴晓刚",
+							type: "重型卡车",
+							time: "2020.06.08",
+							team: "油田A队",
+							status: 0,
+						}, {
+							img: '../../static/ban2.png',
+							title: "待审批01",
+							licensePlate: '粤B001',
+							driver: "吴晓刚",
+							type: "重型卡车",
+							time: "2020.06.08",
+							team: "油田A队",
+							status: 0,
+						},{
+							img: '../../static/ban3.png',
+							title: "待审批01",
+							licensePlate: '粤B001',
+							driver: "吴晓刚",
+							type: "重型卡车",
+							time: "2020.06.08",
+							team: "油田A队",
+							status: 0,
+						}, {
+							img: '../../static/ban2.png',
+							title: "待审批01",
+							licensePlate: '粤B001',
+							driver: "吴晓刚",
+							type: "重型卡车",
+							time: "2020.06.08",
+							team: "油田A队",
+							status: 0,
+						},{
+							img: '../../static/ban3.png',
+							title: "待审批01",
+							licensePlate: '粤B001',
+							driver: "吴晓刚",
+							type: "重型卡车",
+							time: "2020.06.08",
+							team: "油田A队",
+							status: 0,
+						}, {
+							img: '../../static/ban2.png',
+							title: "待审批01",
+							licensePlate: '粤B001',
+							driver: "吴晓刚",
+							type: "重型卡车",
+							time: "2020.06.08",
+							team: "油田A队",
+							status: 0,
+						},{
+							img: '../../static/ban3.png',
+							title: "待审批01",
+							licensePlate: '粤B001',
+							driver: "吴晓刚",
+							type: "重型卡车",
+							time: "2020.06.08",
+							team: "油田A队",
+							status: 0,
+						}, {
+							img: '../../static/ban2.png',
+							title: "待审批01",
+							licensePlate: '粤B001',
+							driver: "吴晓刚",
+							type: "重型卡车",
+							time: "2020.06.08",
+							team: "油田A队",
+							status: 0,
+						},{
+							img: '../../static/ban3.png',
+							title: "待审批01",
+							licensePlate: '粤B001',
+							driver: "吴晓刚",
+							type: "重型卡车",
+							time: "2020.06.08",
+							team: "油田A队",
+							status: 0,
+						}, {
+							img: '../../static/ban2.png',
+							title: "待审批01",
+							licensePlate: '粤B001',
+							driver: "吴晓刚",
+							type: "重型卡车",
+							time: "2020.06.08",
+							team: "油田A队",
+							status: 0,
+						},{
 							img: '../../static/ban3.png',
 							title: "待审批01",
 							licensePlate: '粤B001',
@@ -275,10 +385,7 @@
 <style lang="less" scoped>
 	.page-tabs {
 		width: 100%;
-		touch-action: none;
-		height: 100vh;
 		flex-direction: column;
-		overflow: hidden;
 		background-color: #ffffff;
 
 		.tab-bar {
@@ -339,7 +446,10 @@
 		}
 
 		.page-tab-box {
-			height: calc(100% - 84rpx);
+			height: calc(100vh - 278rpx);
+			/* #ifdef APP-PLUS */
+			height: calc(100vh - 84rpx);
+			/* #endif */
 			width: 100vw;
 			overflow: auto;
 			flex: 1;
@@ -459,7 +569,7 @@
 			}
 
 			.uni-list-cell-hover {
-				background-color: #eee;
+				//background-color: #eee;
 			}
 		}
 	}

@@ -1,13 +1,13 @@
 <template>
 	<view class="content">
 		<swiper class="swiper" circular :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
-			<template v-for="(item,index) in bannerList">
+			<block v-for="(item,index) in bannerList">
 				<swiper-item :key="index+'img'">
 					<view class="swiper-item">
 						<image :src="item.img" mode=""></image>
 					</view>
 				</swiper-item>
-			</template>
+			</block>
 		</swiper>
 		<view class="btn-area">
 			<block v-for="(item,index) in subMenu">
@@ -69,7 +69,7 @@
 
 <style lang="less" scoped>
 	.content {
-		width: 100%;height: 100vh;
+		width: 100%;
 		.swiper {
 			width: 100%;
 			height: 400rpx;

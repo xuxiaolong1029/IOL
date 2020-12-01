@@ -56,29 +56,6 @@
 						iol_type: '95#',
 						iol_unit: "L",
 						iol_num: 10,
-					},
-					{
-						time: "2020-11-23",
-						deiver: "吴晓刚",
-						kilometer: "100",
-						iol_type: '95#',
-						iol_unit: "L",
-						iol_num: 10,
-					},
-					{
-						time: "2020-11-23",
-						deiver: "吴晓刚",
-						kilometer: "100",
-						iol_type: '95#',
-						iol_unit: "L",
-						iol_num: 10,
-					},{
-						time: "2020-11-23",
-						deiver: "吴晓刚",
-						kilometer: "100",
-						iol_type: '95#',
-						iol_unit: "L",
-						iol_num: 10,
 					}
 				]
 			}
@@ -98,7 +75,7 @@
 
 <style lang="less" scoped>
 	.page-record {
-		width: 100%;height:100vh;position: relative;padding:20rpx 0;box-sizing: border-box;overflow-y: hidden;
+		width: 100%;position: relative;padding:20rpx 0;box-sizing: border-box;overflow-y: hidden;
 		.record-content {
 			height:100%;overflow-y: auto;padding:0 20rpx;
 			.record-team {

@@ -50,7 +50,7 @@
 <style lang="less" scoped>
 	.page-person {
 		width: 100%;
-		height:100vh;
+		height:calc(100vh - 200rpx);
 		overflow-y: hidden;
 		position: relative;
 
@@ -88,7 +88,7 @@
 
 		.logout {
 			position: absolute;
-			bottom: 20rpx;
+			bottom: 40rpx;
 			padding: 20rpx 80rpx;
 			width: 100%;
 			box-sizing: border-box;

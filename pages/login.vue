@@ -75,7 +75,7 @@
 
 <style lang="less" scoped>
 	.page{
-		width: 100vw;height: 100vh;
+		width: 100vw;
 		.login-logo{
 			width: 100%;position: relative;height:400rpx;
 			background-color:#5777FE;text-align: center;
