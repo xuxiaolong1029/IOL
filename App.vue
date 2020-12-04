@@ -1,7 +1,14 @@
 <script>
 	export default {
 		onLaunch: function() {
-			console.log('App Launch')
+			uni.getSystemInfo({
+				success:function(res){
+					uni.setStorage({
+					    key:'screenHeight',
+					    data:res.screenHeight-94		
+					});
+				}
+			});
 		},
 		onShow: function() {
 			
@@ -13,6 +20,7 @@
 </script>
 
 <style>
+	 /* #ifndef APP-PLUS-NVUE */
 /*  @import './common/uni.css'; */
 html,body{
 	user-select: none;
@@ -20,4 +28,5 @@ html,body{
 	height: 100%;
 	touch-action: none;
 }
+  /* #endif*/
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<view class="content">
+	<view class="content" :style="{height:height+'px'}">
 		<swiper class="swiper" circular :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
 			<block v-for="(item,index) in bannerList">
 				<swiper-item :key="index+'img'">
@@ -26,6 +26,7 @@
 	export default {
 		data() {
 			return {
+				height:0,
 				bannerList: [{
 						img: '../../static/ban1.png'
 					},
@@ -59,7 +60,13 @@
 			}
 		},
 		onLoad(option) {
-			
+			uni.getStorage({
+			    key: 'screenHeight',
+			    success:(res)=>{
+					this.height = res.data
+			        console.log(res.data);
+			    }
+			});
 		},
 		methods: {
 			

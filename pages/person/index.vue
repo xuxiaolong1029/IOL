@@ -50,7 +50,7 @@
 <style lang="less" scoped>
 	.page-person {
 		width: 100%;
-		height:calc(100vh - 200rpx);
+		height:calc(100vh - 240rpx);
 		overflow-y: hidden;
 		position: relative;
 

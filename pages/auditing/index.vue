@@ -15,7 +15,7 @@
 		<swiper class="page-tab-box" ref="swiper1" :current="tabIndex" @change="onswiperchange">
 			<blockv-for="(page, index) in tabList" :key="index">
 				<swiper-item class="swiper-item" v-for="(page, index) in tabList" :key="index">
-					<view class="page-news">
+					<view style="flex: 1;">
 						<scroll-view class="listview" style="flex: 1;" enableBackToTop="true" scroll-y @scrolltolower="loadMore()">
 							<view class="uni-list">
 								<block v-for="(value, ind) in pageList" :key="index+'ss'+ind">
@@ -139,7 +139,7 @@
 							time: "2020.06.08",
 							team: "油田A队",
 							status: 0,
-						},{
+						}, {
 							img: '../../static/ban3.png',
 							title: "待审批01",
 							licensePlate: '粤B001',
@@ -157,7 +157,7 @@
 							time: "2020.06.08",
 							team: "油田A队",
 							status: 0,
-						},{
+						}, {
 							img: '../../static/ban3.png',
 							title: "待审批01",
 							licensePlate: '粤B001',
@@ -175,7 +175,7 @@
 							time: "2020.06.08",
 							team: "油田A队",
 							status: 0,
-						},{
+						}, {
 							img: '../../static/ban3.png',
 							title: "待审批01",
 							licensePlate: '粤B001',
@@ -193,7 +193,7 @@
 							time: "2020.06.08",
 							team: "油田A队",
 							status: 0,
-						},{
+						}, {
 							img: '../../static/ban3.png',
 							title: "待审批01",
 							licensePlate: '粤B001',
@@ -211,7 +211,7 @@
 							time: "2020.06.08",
 							team: "油田A队",
 							status: 0,
-						},{
+						}, {
 							img: '../../static/ban3.png',
 							title: "待审批01",
 							licensePlate: '粤B001',
@@ -229,7 +229,7 @@
 							time: "2020.06.08",
 							team: "油田A队",
 							status: 0,
-						},{
+						}, {
 							img: '../../static/ban3.png',
 							title: "待审批01",
 							licensePlate: '粤B001',
@@ -383,8 +383,10 @@
 </script>
 
 <style lang="less" scoped>
+	/* #ifndef APP-PLUS-NVUE */
 	.page-tabs {
 		width: 100%;
+		flex: 1;
 		flex-direction: column;
 		background-color: #ffffff;
 
@@ -396,7 +398,6 @@
 			flex-direction: row;
 			/* #ifndef APP-PLUS */
 			white-space: nowrap;
-
 			/* #endif */
 			.scroll-view-indicator {
 				position: relative;
@@ -418,7 +419,6 @@
 			}
 
 			.uni-tab-item {
-				display: inline-block;
 				flex-wrap: nowrap;
 				flex: 1;
 				text-align: center;
@@ -531,6 +531,7 @@
 							width: 100%;
 							display: flex;
 							justify-content: space-between;
+							flex-direction: row;
 							height: 56rpx;
 							line-height: 50rpx;
 							font-size: 32rpx;
@@ -548,6 +549,7 @@
 							line-height: 40rpx;
 							display: flex;
 							justify-content: space-between;
+							flex-direction: row;
 							font-size: 28rpx;
 							color: #333;
 						}
@@ -573,4 +575,6 @@
 			}
 		}
 	}
+
+	/* #endif */
 </style>

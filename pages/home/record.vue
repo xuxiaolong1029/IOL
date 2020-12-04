@@ -75,7 +75,7 @@
 
 <style lang="less" scoped>
 	.page-record {
-		width: 100%;position: relative;padding:20rpx 0;box-sizing: border-box;overflow-y: hidden;
+		width: 100%;position: relative;padding:20rpx 0;box-sizing: border-box;overflow-y: hidden;height:auto;
 		.record-content {
 			height:100%;overflow-y: auto;padding:0 20rpx;
 			.record-team {
