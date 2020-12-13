@@ -48,8 +48,8 @@
 		data() {
 			return {
 				inputForm:{
-					username:'admin',
-					password:'admin'
+					username:'',
+					password:''
 				},
 				setInput:{
 					ip:'',
@@ -89,21 +89,25 @@
 					});
 					return
 				}
-				uni.switchTab({
-				  url: '/pages/home/index'
-				});
 				http.server({
-					url: '/sys-auth/user/login',
+					url: '/api/auth/login',
 					method: 'POST',
 					data: this.inputForm
 				}).then(res => {
-					if(res.code === 200){
-						uni.switchTab({
-						  url: '/pages/home/index'
+					if(res.code === 0){
+						console.log(res)
+						uni.setStorage({
+						    key: 'storage_user',
+						    data:JSON.stringify(res.data),
+						    success: function () {
+						        uni.switchTab({
+						          url: '/pages/home/index'
+						        });
+						    }
 						});
 					}else{
 						uni.showToast({
-							title: res.message,
+							title: res.msg,
 							icon:'none',//不要图标
 							duration: 1000//1后消失
 						});

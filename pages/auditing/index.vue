@@ -58,6 +58,7 @@
 </template>
 
 <script>
+	import http from '../../plugins/network/index.js'
 	import uniLoadMore from '@/components/uni-load-more.vue';
 	export default {
 		components: {
@@ -336,22 +337,51 @@
 				},
 				pageList: [],
 				tabIndex: 0,
-				isTap: true
+				isTap: true,
+				userInfo:{}
 			}
 		},
 		onLoad(event) {
 			this.tabIndex = Number(event.status) || 0;
+			uni.getStorage({
+			    key: 'storage_user',
+			    success: (res)=> {
+					this.userInfo = JSON.parse(res.data);
+			    }
+			});
 			//this.pageList = this.swipePageList[this.tabIndex]
 			uni.startPullDownRefresh();
 		},
 		onPullDownRefresh() {
 			this.getTableData()
+			this.getAuditingList();
 		},
 		onReachBottom() {
 			console.log('222d3d3')
 			this.status = 'more';
 		},
 		methods: {
+			getAuditingList(){
+				let par={
+					"size": 10,
+					userId:this.userInfo.userId
+				};
+				http.server({
+					url: '/api/auth/auditList',
+					method: 'POST',
+					data:par
+				}).then(res => {
+					if(res.code === 0){
+						
+					}else{
+						uni.showToast({
+							title: res.msg,
+							icon:'none',//不要图标
+							duration: 1000//1后消失
+						});
+					}
+				});
+			},
 			loadMore(e) {
 				console.log()
 			},

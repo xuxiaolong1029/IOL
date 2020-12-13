@@ -114,11 +114,11 @@
             "mode" : "history"
         },
         "devServer" : {
-            "port" : 8888,
+            "port" : 9000,
             "disableHostCheck" : true,
             "proxy" : {
-                "/sys-auth" : {
-                    "target" : "http://192.168.50.129:3000",
+                "/api" : {
+                    "target" : "http://42.192.52.158:8084",
                     "changeOrigin" : true,
                     "secure" : true
                 }
