@@ -1,18 +1,19 @@
 //const baseUrl = process.env.NODE_ENV==='development'?'':'https://convdev.clear-sz.com'
 const server = (optitons, data) => {
-    let httpDefaultOpts = {
-        url:optitons.url,
-        data:optitons.data,
+	console.log(optitons.url)
+	let httpDefaultOpts = {
+	    url:optitons.url,
+	    data:optitons.data,
 		timeout:10000,
-        method: optitons.method,
-        header:{
+	    method: optitons.method,
+	    header:{
 			"Accept": "application/json, text/plain, */*",
 			"Content-Type": "application/json; charset=UTF-8"
 		},
-        dataType: 'json',
-    }
-    let promise = new Promise(function(resolve, reject) {
-        uni.request(httpDefaultOpts).then((res) => {//res为一个数组，数组第一项为错误信息，第二项为返回数据
+	    dataType: 'json',
+	}
+	let promise = new Promise(function(resolve, reject) {
+	    uni.request(httpDefaultOpts).then((res) => {//res为一个数组，数组第一项为错误信息，第二项为返回数据
 			let data = res[1];
 			if(data.statusCode===200){
 				resolve(data.data)
@@ -24,11 +25,12 @@ const server = (optitons, data) => {
 				});
 			}
 		}).catch((response) => {
-            reject(response)
-        })
-    })
-    return promise
+	        reject(response)
+	    })
+	})
+	return promise
 };
+
 export default {
     server
 }

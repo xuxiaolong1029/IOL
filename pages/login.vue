@@ -25,12 +25,12 @@
 				<view class="dialog-input-title"><text>设置IP和端口</text></view>
 				<view class="dialog-input-input">
 					<input type="text" :class="focusIndex===1?'input focus':'input'" @focus="focusIndex=1" 
-					placeholder-style="color:#ccc" v-model="setInput.ip" placeholder="请输入IP">
+					placeholder-style="color:#ccc" v-model="setInput.ip" placeholder="请输入IP(如:162.192.52.100)">
 					<input type="password" style="margin-top: 10rpx;" :class="focusIndex===2?'input focus':'input'"  @focus="focusIndex=2"
-					placeholder-style="color:#ccc" v-model="setInput.port" placeholder="请入端口">
+					placeholder-style="color:#ccc" v-model="setInput.port" placeholder="请入端口(如:8090)">
 				</view>
 				<view class="dialog-input-button">
-					<text class="text" @click="closeDialog">取消</text>
+					<text class="cancel text" @click="closeDialog">取消</text>
 					<text class="text" @click="setIP">确定</text>
 				</view>
 			</view>
@@ -64,7 +64,30 @@
 				this.checked!=this.checked;
 			},
 			setIP(){
-				this.closeDialog()
+				if(!this.setInput.ip){
+					uni.showToast({
+						title: "请输入ip",
+						icon:'none',//不要图标
+						duration: 1000//1后消失
+					});
+					return
+				}
+				if(!this.setInput.port){
+					uni.showToast({
+						title: "请输入端口",
+						icon:'none',//不要图标
+						duration: 1000//1后消失
+					});
+					return
+				}
+				uni.setStorage({
+				    key: 'storage_ip',
+				    data:JSON.stringify(this.setInput),
+				    success: ()=> {
+				        this.loginApi(this.setInput);
+				        this.closeDialog()
+				    }
+				});
 			},
 			confirmDialog(){
 				this.$refs.dialogInput.open()
@@ -89,13 +112,29 @@
 					});
 					return
 				}
+				uni.getStorage({
+				    key: 'storage_ip',
+				    success: (res) => {
+						let setInput = JSON.parse(res.data);
+				    	this.loginApi(setInput);
+				    },
+				    fail:(err)=> {
+				    	uni.showToast({
+				    		title: "请设置ip和端口",
+				    		icon:'none',//不要图标
+				    		duration: 1000//1后消失
+				    	});
+				    }
+				});
+			},
+			loginApi(setInput){
 				http.server({
-					url: '/api/auth/login',
+					url:`http://${setInput.ip}:${setInput.port}/api/auth/login`,
 					method: 'POST',
 					data: this.inputForm
 				}).then(res => {
+					console.log(res)
 					if(res.code === 0){
-						console.log(res)
 						uni.setStorage({
 						    key: 'storage_user',
 						    data:JSON.stringify(res.data),
@@ -163,6 +202,9 @@
 			}
 			.dialog-input-button{
 				margin-top: 50rpx;text-align: right;color: #5777FE;
+				.cancel{
+					color: #ccc;
+				}
 				.text{
 					width: 100rpx;display: inline-block;text-align: center;
 				}

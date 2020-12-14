@@ -11,7 +11,7 @@
 		</swiper>
 		<view class="btn-area">
 			<block v-for="(item,index) in subMenu">
-				<view class="navigator-item">
+				<view class="navigator-item" v-if="userInfo.roleName==='司机'?item.path!=='car':item.path">
 					<navigator :url="item.path" hover-class="navigator-hover" :key="index">
 						<image class="img" :src="item.img" mode=""></image>
 						<view class="title">{{item.title}}</view>
@@ -26,7 +26,7 @@
 	export default {
 		data() {
 			return {
-				height:0,
+				height: 0,
 				bannerList: [{
 						img: '../../static/ban1.png'
 					},
@@ -56,20 +56,69 @@
 				indicatorDots: true,
 				autoplay: true,
 				interval: 4000,
-				duration: 500
+				duration: 500,
+				userInfo: {}
 			}
 		},
-		onLoad(option) {
+		onShow(option) {
 			uni.getStorage({
-			    key: 'screenHeight',
-			    success:(res)=>{
+				key: 'storage_user',
+				success: (res) => {
+					this.userInfo = JSON.parse(res.data);
+					console.log(this.userInfo)
+					if (this.userInfo.roleName === '司机') {
+						this.subMenu = [{
+								path: "oil",
+								title: "换油预约",
+								img: "../../static/oil.png"
+							},
+							{
+								path: "record",
+								title: "换油记录",
+								img: "../../static/record.png"
+							}
+						];
+					} else if (this.userInfo.roleName === '队长') {
+						this.subMenu = [{
+								path: "oil",
+								title: "换油预约",
+								img: "../../static/oil.png"
+							},
+							{
+								path: "car",
+								title: "车辆管理",
+								img: "../../static/car.png"
+							},
+							{
+								path: "record",
+								title: "换油记录",
+								img: "../../static/record.png"
+							}
+						];
+					} else {
+						this.subMenu = [{
+								path: "car",
+								title: "车辆管理",
+								img: "../../static/car.png"
+							},
+							{
+								path: "record",
+								title: "换油记录",
+								img: "../../static/record.png"
+							}
+						];
+					}
+				}
+			});
+			uni.getStorage({
+				key: 'screenHeight',
+				success: (res) => {
 					this.height = res.data
-			        console.log(res.data);
-			    }
+				}
 			});
 		},
 		methods: {
-			
+
 		}
 	}
 </script>
@@ -77,9 +126,11 @@
 <style lang="less" scoped>
 	.content {
 		width: 100%;
+
 		.swiper {
 			width: 100%;
 			height: 400rpx;
+
 			.swiper-item {
 				display: block;
 				height: 400rpx;
@@ -96,10 +147,12 @@
 		.btn-area {
 			padding: 60rpx 40rpx;
 			display: flex;
+			flex-flow: wrap;
 			text-align: center;
-			justify-content: space-between;
 
 			.navigator-item {
+				width: 33.33%;
+
 				.img {
 					width: 120rpx;
 					height: 120rpx;

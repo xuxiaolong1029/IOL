@@ -48,7 +48,7 @@
 				]
 			}
 		},
-		onLoad(event) {
+		onShow(event) {
 
 		},
 		methods: {

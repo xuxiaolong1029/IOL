@@ -16,34 +16,34 @@
 			<blockv-for="(page, index) in tabList" :key="index">
 				<swiper-item class="swiper-item" v-for="(page, index) in tabList" :key="index">
 					<view style="flex: 1;">
-						<scroll-view class="listview" style="flex: 1;" enableBackToTop="true" scroll-y @scrolltolower="loadMore()">
+						<scroll-view class="listview" style="flex: 1;" enableBackToTop="true" scroll-y>
 							<view class="uni-list">
 								<block v-for="(value, ind) in pageList" :key="index+'ss'+ind">
 									<view class="uni-list-cell" hover-class="uni-list-cell-hover" @click="goDetail(value,index)">
 										<view class="uni-media-list">
-											<image class="uni-media-list-logo" :src="value.img"></image>
+											<image class="uni-media-list-logo" :src="`../../static/ban${tabIndex+1}.png`"></image>
 											<view class="uni-media-list-body">
 												<view class="uni-media-list-text-top">
 													<text>
-														{{ value.title }}
+														{{ value.title||'换油申请' }}
 													</text>
 													<text class="time">
-														预达：{{ value.time}}
+														预约：{{ value.applyOilchangeTime.substring(5,16)||''}}
 													</text>
 												</view>
 												<view class="uni-media-list-text-bottom">
-													<text>司机：{{ value.driver }}</text>
-													<text>车队：{{ value.team }}</text>
+													<text>司机：{{ value.applicant }}</text>
+													<text>车队：{{ value.fleetLeader }}</text>
 												</view>
 												<view class="uni-media-list-text-bottom">
-													<text>车型：{{ value.type }}</text>
-													<text>车牌：{{ value.licensePlate }}</text>
+													<text>车型：{{ value.vehicleType }}</text>
+													<text>车牌：{{ value.plate }}</text>
 												</view>
 											</view>
 										</view>
-										<view class="uni-media-reject" v-if="value.refuse">
-											<text class="text">驳回人：{{value.refuse.person}}</text>
-											<text class="text" style="margin-top: 4px;">驳回原因：{{value.refuse.reason}}</text>
+										<view class="uni-media-reject" v-if="tabIndex===2">
+											<text class="text">驳回人：{{value.deptLeader}}</text>
+											<text class="text" style="margin-top: 4px;">驳回原因：审核未通过</text>
 										</view>
 									</view>
 								</block>
@@ -82,314 +82,72 @@
 					id: "tab03",
 					name: '未通过'
 				}],
-				swipePageList: {
-					0: [{
-							img: '../../static/ban1.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						},
-						{
-							img: '../../static/ban2.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						},
-						{
-							img: '../../static/ban3.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						}, {
-							img: '../../static/ban2.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						},
-						{
-							img: '../../static/ban3.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						}, {
-							img: '../../static/ban2.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						}, {
-							img: '../../static/ban3.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						}, {
-							img: '../../static/ban2.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						}, {
-							img: '../../static/ban3.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						}, {
-							img: '../../static/ban2.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						}, {
-							img: '../../static/ban3.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						}, {
-							img: '../../static/ban2.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						}, {
-							img: '../../static/ban3.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						}, {
-							img: '../../static/ban2.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						}, {
-							img: '../../static/ban3.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						}, {
-							img: '../../static/ban2.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						}, {
-							img: '../../static/ban3.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						}, {
-							img: '../../static/ban2.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						},
-						{
-							img: '../../static/ban3.png',
-							title: "待审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 0,
-						}
-					],
-					1: [{
-							img: '../../static/ban2.png',
-							title: "已审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 1,
-						},
-						{
-							img: '../../static/ban1.png',
-							title: "已审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 1,
-						},
-						{
-							img: '../../static/ban3.png',
-							title: "已审批01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 1,
-						}
-					],
-					2: [{
-							img: '../../static/ban3.png',
-							title: "未通过01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 2,
-							refuse: {
-								person: "厂级主管王五",
-								reason: '还可以继续使用一个月'
-							}
-						},
-						{
-							img: '../../static/ban1.png',
-							title: "未通过01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 2,
-							refuse: {
-								person: "厂级主管王五",
-								reason: '还可以继续使用一个月'
-							}
-						},
-						{
-							img: '../../static/ban2.png',
-							title: "未通过01",
-							licensePlate: '粤B001',
-							driver: "吴晓刚",
-							type: "重型卡车",
-							time: "2020.06.08",
-							team: "油田A队",
-							status: 2,
-							refuse: {
-								person: "厂级主管王五",
-								reason: '还可以继续使用一个月'
-							}
-						}
-					]
-				},
 				pageList: [],
 				tabIndex: 0,
 				isTap: true,
 				userInfo:{}
 			}
 		},
-		onLoad(event) {
-			this.tabIndex = Number(event.status) || 0;
+		onLoad(event){
+			this.tabIndex = Number(event.status)||0;
+		},
+		onShow(event) {
 			uni.getStorage({
 			    key: 'storage_user',
 			    success: (res)=> {
 					this.userInfo = JSON.parse(res.data);
 			    }
 			});
-			//this.pageList = this.swipePageList[this.tabIndex]
 			uni.startPullDownRefresh();
 		},
 		onPullDownRefresh() {
-			this.getTableData()
+			//this.getTableData()
 			this.getAuditingList();
 		},
 		onReachBottom() {
-			console.log('222d3d3')
 			this.status = 'more';
 		},
 		methods: {
 			getAuditingList(){
 				let par={
-					"size": 10,
+					size: 100000,
 					userId:this.userInfo.userId
 				};
-				http.server({
-					url: '/api/auth/auditList',
-					method: 'POST',
-					data:par
-				}).then(res => {
-					if(res.code === 0){
-						
-					}else{
-						uni.showToast({
-							title: res.msg,
-							icon:'none',//不要图标
-							duration: 1000//1后消失
-						});
-					}
+				uni.getStorage({
+				    key: 'storage_ip',
+				    success: (res) => {
+						let setInput = JSON.parse(res.data);
+				    	http.server({
+							url:`http://${setInput.ip}:${setInput.port}/api/auth/auditList`,				  
+				    		method: 'POST',
+				    		data:par
+				    	}).then(res => {
+				    		let {code,data} = res;
+				    		if(code === 0){
+				    			this.swipeLists={
+				    				0:[...data.unAuditList],
+				    				1:[...data.auditSuccess],
+				    				2:[...data.auditFailedList]
+				    			}
+				    			this.getTableData()
+				    		}else{
+				    			uni.showToast({
+				    				title: res.msg,
+				    				icon:'none',//不要图标
+				    				duration: 1000//1后消失
+				    			});
+				    		}
+				    	});
+				    }		
 				});
-			},
-			loadMore(e) {
-				console.log()
 			},
 			goDetail(row, index) {
-				if (index === 2) return
-				uni.navigateTo({
-					url: "/pages/auditing/details?payload=" + encodeURIComponent(JSON.stringify(row))
-				});
+				if(this.userInfo.roleName!=="司机"){
+					if (index === 2) return
+					uni.navigateTo({
+						url: `/pages/auditing/details?payload=${encodeURIComponent(JSON.stringify(row))}&index=${index}`
+					});
+				}
 			},
 			clickLoadMore(e) {
 				console.log(e)
@@ -404,7 +162,7 @@
 				this.getTableData()
 			},
 			getTableData() {
-				this.pageList = this.swipePageList[this.tabIndex];
+				this.pageList = this.swipeLists[this.tabIndex];
 				this.status = 'noMore';
 				uni.startPullDownRefresh();
 			}
