@@ -37,10 +37,13 @@
 
 <script>
 	import http from '../../plugins/network/index.js'
+	import {mapState} from 'vuex'
 	export default {
+		computed: {
+			...mapState(['userInfo'])
+		},
 		data() {
 			return {
-				userInfo: {},
 				detailDate: {},
 				status: 0
 			}
@@ -54,12 +57,6 @@
 			} catch (error) {
 				this.detailDate = JSON.parse(payload);
 			}
-			uni.getStorage({
-				key: 'storage_user',
-				success: (res) => {
-					this.userInfo = JSON.parse(res.data);
-				}
-			});
 			uni.setNavigationBarTitle({
 				title: this.detailDate.title
 			});
@@ -100,35 +97,29 @@
 					userId: this.userInfo.userId,
 					type: type
 				}
-				uni.getStorage({
-				    key: 'storage_ip',
-				    success: (res) => {
-						let setInput = JSON.parse(res.data);
-						http.server({
-							url:`http://${setInput.ip}:${setInput.port}/api/auth/audit`,
-							method: 'POST',
-							data: par
-						}).then(res => {
-							if (res.code === 0) {
-								uni.showToast({
-									title: res.msg,
-									icon: 'none', //不要图标
-									duration: 1000, //1后消失
-									success: () => {
-										uni.switchTab({
-											url:`/pages/auditing/index?status=${type==='0'?2:1}`
-										});
-									}
-								});
-							} else {
-								uni.showToast({
-									title: res.msg,
-									icon: 'none', //不要图标
-									duration: 1000 //1后消失
+				http.server({
+					url: '/api/auth/audit',
+					method: 'POST',
+					data: par
+				}).then(res => {
+					if (res.code === 0) {
+						uni.showToast({
+							title: res.msg,
+							icon: 'none', //不要图标
+							duration: 1000, //1后消失
+							success: () => {
+								uni.switchTab({
+									url: `/pages/auditing/index?status=${type==='0'?2:1}`
 								});
 							}
 						});
-				    }		
+					} else {
+						uni.showToast({
+							title: res.msg,
+							icon: 'none', //不要图标
+							duration: 1000 //1后消失
+						});
+					}
 				});
 			}
 		}

@@ -1,8 +1,8 @@
 //const baseUrl = process.env.NODE_ENV==='development'?'':'https://convdev.clear-sz.com'
 const server = (optitons, data) => {
-	console.log(optitons.url)
+	const storage_ip = JSON.parse(uni.getStorageSync('storage_ip')); 
 	let httpDefaultOpts = {
-	    url:optitons.url,
+	    url: `http://${storage_ip.ip}:${storage_ip.port}${optitons.url}`,
 	    data:optitons.data,
 		timeout:10000,
 	    method: optitons.method,
@@ -13,6 +13,7 @@ const server = (optitons, data) => {
 	    dataType: 'json',
 	}
 	let promise = new Promise(function(resolve, reject) {
+		console.log(httpDefaultOpts)
 	    uni.request(httpDefaultOpts).then((res) => {//res为一个数组，数组第一项为错误信息，第二项为返回数据
 			let data = res[1];
 			if(data.statusCode===200){

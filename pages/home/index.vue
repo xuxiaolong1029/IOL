@@ -23,7 +23,11 @@
 </template>
 
 <script>
+	import {mapState} from 'vuex'
 	export default {
+		computed: {
+			...mapState(['userInfo'])
+		},
 		data() {
 			return {
 				height: 0,
@@ -37,85 +41,68 @@
 						img: '../../static/ban3.png'
 					}
 				],
-				subMenu: [{
-						path: "oil",
-						title: "换油预约",
-						img: "../../static/oil.png"
-					},
-					{
-						path: "car",
-						title: "车辆管理",
-						img: "../../static/car.png"
-					},
-					{
-						path: "record",
-						title: "换油记录",
-						img: "../../static/record.png"
-					},
-				],
+				subMenu: [],
 				indicatorDots: true,
 				autoplay: true,
 				interval: 4000,
 				duration: 500,
-				userInfo: {}
 			}
 		},
-		onShow(option) {
-			uni.getStorage({
-				key: 'storage_user',
-				success: (res) => {
-					this.userInfo = JSON.parse(res.data);
-					console.log(this.userInfo)
-					if (this.userInfo.roleName === '司机') {
-						this.subMenu = [{
-								path: "oil",
-								title: "换油预约",
-								img: "../../static/oil.png"
-							},
-							{
-								path: "record",
-								title: "换油记录",
-								img: "../../static/record.png"
-							}
-						];
-					} else if (this.userInfo.roleName === '队长') {
-						this.subMenu = [{
-								path: "oil",
-								title: "换油预约",
-								img: "../../static/oil.png"
-							},
-							{
-								path: "car",
-								title: "车辆管理",
-								img: "../../static/car.png"
-							},
-							{
-								path: "record",
-								title: "换油记录",
-								img: "../../static/record.png"
-							}
-						];
-					} else {
-						this.subMenu = [{
-								path: "car",
-								title: "车辆管理",
-								img: "../../static/car.png"
-							},
-							{
-								path: "record",
-								title: "换油记录",
-								img: "../../static/record.png"
-							}
-						];
+		onShow() {
+			if(Object.keys(this.userInfo).length===0){
+				uni.navigateTo({
+					url: "/pages/login"
+				});
+			}else{
+				if (this.userInfo.roleName === '司机') {
+					this.subMenu = [{
+							path: "oil",
+							title: "换油预约",
+							img: "../../static/oil.png"
+						},
+						{
+							path: "record",
+							title: "换油记录",
+							img: "../../static/record.png"
+						}
+					];
+				} else if (this.userInfo.roleName === '队长') {
+					this.subMenu = [{
+							path: "oil",
+							title: "换油预约",
+							img: "../../static/oil.png"
+						},
+						{
+							path: "car",
+							title: "车辆管理",
+							img: "../../static/car.png"
+						},
+						{
+							path: "record",
+							title: "换油记录",
+							img: "../../static/record.png"
+						}
+					];
+				} else {
+					this.subMenu = [{
+							path: "car",
+							title: "车辆管理",
+							img: "../../static/car.png"
+						},
+						{
+							path: "record",
+							title: "换油记录",
+							img: "../../static/record.png"
+						}
+					];
+				}
+				uni.getStorage({
+					key: 'screenHeight',
+					success: (res) => {
+						this.height = res.data
 					}
-				}
-			});
-			uni.getStorage({
-				key: 'screenHeight',
-				success: (res) => {
-					this.height = res.data
-				}
-			});
+				});
+			}
 		},
 		methods: {
 

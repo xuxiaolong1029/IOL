@@ -60,7 +60,11 @@
 <script>
 	import http from '../../plugins/network/index.js'
 	import uniLoadMore from '@/components/uni-load-more.vue';
+	import {mapState} from 'vuex'
 	export default {
+		computed: {
+			...mapState(['userInfo'])
+		},
 		components: {
 			uniLoadMore
 		},
@@ -84,73 +88,63 @@
 				}],
 				pageList: [],
 				tabIndex: 0,
-				isTap: true,
-				userInfo:{}
+				isTap: true
 			}
 		},
-		onLoad(event){
-			this.tabIndex = Number(event.status)||0;
+		onLoad(event) {
+			this.tabIndex = Number(event.status) || 0;
 		},
 		onShow(event) {
-			uni.getStorage({
-			    key: 'storage_user',
-			    success: (res)=> {
-					this.userInfo = JSON.parse(res.data);
-			    }
-			});
+			console.log(this.userInfo);
 			uni.startPullDownRefresh();
 		},
 		onPullDownRefresh() {
 			//this.getTableData()
-			this.getAuditingList();
+			setTimeout(()=>{
+				this.getAuditingList();
+			},100)
 		},
 		onReachBottom() {
 			this.status = 'more';
 		},
 		methods: {
-			getAuditingList(){
-				let par={
-					size: 100000,
-					userId:this.userInfo.userId
+			getAuditingList() {
+				let par = {
+					size: 1000,
+					userId: this.userInfo.userId
 				};
-				uni.getStorage({
-				    key: 'storage_ip',
-				    success: (res) => {
-						let setInput = JSON.parse(res.data);
-				    	http.server({
-							url:`http://${setInput.ip}:${setInput.port}/api/auth/auditList`,				  
-				    		method: 'POST',
-				    		data:par
-				    	}).then(res => {
-				    		let {code,data} = res;
-				    		if(code === 0){
-				    			this.swipeLists={
-				    				0:[...data.unAuditList],
-				    				1:[...data.auditSuccess],
-				    				2:[...data.auditFailedList]
-				    			}
-				    			this.getTableData()
-				    		}else{
-				    			uni.showToast({
-				    				title: res.msg,
-				    				icon:'none',//不要图标
-				    				duration: 1000//1后消失
-				    			});
-				    		}
-				    	});
-				    }		
+				http.server({
+					url: '/api/auth/auditList',
+					method: 'POST',
+					data: par
+				}).then(res => {
+					let {
+						code,
+						data
+					} = res;
+					if (code === 0) {
+						this.swipeLists = {
+							0: [...data.unAuditList],
+							1: [...data.auditSuccess],
+							2: [...data.auditFailedList]
+						}
+						this.getTableData()
+					} else {
+						uni.showToast({
+							title: res.msg,
+							icon: 'none', //不要图标
+							duration: 1000 //1后消失
+						});
+					}
 				});
 			},
 			goDetail(row, index) {
-				if(this.userInfo.roleName!=="司机"){
+				if (this.userInfo.roleName !== "司机") {
 					if (index === 2) return
 					uni.navigateTo({
 						url: `/pages/auditing/details?payload=${encodeURIComponent(JSON.stringify(row))}&index=${index}`
 					});
 				}
-			},
-			clickLoadMore(e) {
-				console.log(e)
 			},
 			ontabtap(e) {
 				this.tabIndex = e
@@ -186,6 +180,7 @@
 			flex-direction: row;
 			/* #ifndef APP-PLUS */
 			white-space: nowrap;
+
 			/* #endif */
 			.scroll-view-indicator {
 				position: relative;

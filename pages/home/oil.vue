@@ -42,10 +42,9 @@
 <script>
 	import UniSteps from "../../components/uni-steps.vue"
 	import http from '../../plugins/network/index.js'
-
+	import {mapState} from 'vuex'
 	function getDate(type) {
 		const date = new Date();
-
 		let year = date.getFullYear();
 		let month = date.getMonth() + 1;
 		let day = date.getDate();
@@ -61,6 +60,9 @@
 		return `${year}-${month}-${day}`;
 	}
 	export default {
+		computed: {
+			...mapState(['userInfo'])
+		},
 		components: {
 			'uni-steps': UniSteps
 		},
@@ -76,40 +78,32 @@
 				},
 				auditList: [],
 				startDate: getDate('start'),
-				endDate: getDate('end'),
-				userInfo: {}
+				endDate: getDate('end')
 			}
 		},
 		onShow() {
-			uni.getStorage({
-				key: 'storage_user',
-				success: (res) => {
-					this.userInfo = JSON.parse(res.data);
-					if (this.userInfo.roleName === '司机') {
-						this.auditList = [{
-							title: '审批人-小队副职'
-						}, {
-							title: '审批人-矿机动员'
-						}, {
-							title: '审批人-主管部门'
-						}, {
-							title: '审批人-厂级主管'
-						}]
-					} else {
-						this.auditList = [{
-							title: '审批人-矿机动员'
-						}, {
-							title: '审批人-主管部门'
-						}, {
-							title: '审批人-厂级主管'
-						}]
-					}
-				}
-			});
+			if (this.userInfo.roleName === '司机') {
+				this.auditList = [{
+					title: '审批人-小队副职'
+				}, {
+					title: '审批人-矿机动员'
+				}, {
+					title: '审批人-主管部门'
+				}, {
+					title: '审批人-厂级主管'
+				}]
+			} else {
+				this.auditList = [{
+					title: '审批人-矿机动员'
+				}, {
+					title: '审批人-主管部门'
+				}, {
+					title: '审批人-厂级主管'
+				}]
+			}
 		},
 		methods: {
 			formSubmit: function(e) {
-				console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
 				//定义表单规则
 				var rules = [{
 						name: "vehicleType",
@@ -151,33 +145,27 @@
 					userId: this.userInfo.userId,
 					...this.oilForm
 				}
-				uni.getStorage({
-					key: 'storage_ip',
-					success: (res) => {
-						let setInput = JSON.parse(res.data);
-						http.server({
-							url: `http://${setInput.ip}:${setInput.port}/api/auth/appointment`,
-							method: 'POST',
-							data: par
-						}).then(res => {
-							if (res.code === 0) {
-								uni.showToast({
-									title: res.msg,
-									icon: 'none', //不要图标
-									duration: 1000, //1后消失
-									success: () => {
-										uni.switchTab({
-											url: '/pages/home/index'
-										});
-									}
-								});
-							} else {
-								uni.showToast({
-									title: res.msg,
-									icon: 'none', //不要图标
-									duration: 1000 //1后消失
+				http.server({
+					url: '/api/auth/appointment',
+					method: 'POST',
+					data: par
+				}).then(res => {
+					if (res.code === 0) {
+						uni.showToast({
+							title: res.msg,
+							icon: 'none', //不要图标
+							duration: 1000, //1后消失
+							success: () => {
+								uni.switchTab({
+									url: '/pages/home/index'
 								});
 							}
+						});
+					} else {
+						uni.showToast({
+							title: res.msg,
+							icon: 'none', //不要图标
+							duration: 1000 //1后消失
 						});
 					}
 				});

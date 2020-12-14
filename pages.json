@@ -1,68 +1,61 @@
 {
-	"pages": [
-		{
-			"path" : "pages/login",
-			"style" :{
-				"navigationBarTitleText": ""
-			}
-		},{
-			"path": "pages/home/index",
-			"style": {
-				"navigationBarTitleText": "首页",
-				"enablePullDownRefresh": true
-			}
-		},{
-			"path" : "pages/auditing/index",
-			"style":{
-				"navigationBarTitleText": "审批",
-				"enablePullDownRefresh": true
-			}
-		},{
-			"path" : "pages/person/index",
-			"style":{
-				"navigationBarTitleText": "我的",
-				"enablePullDownRefresh": false
-			}
-		},{
-			"path" : "pages/home/components/car_list",
-			"style":{
-				"navigationBarTitleText": "车辆管理",
-				"enablePullDownRefresh": false
-			}
+	"pages": [{
+		"path": "pages/home/index",
+		"style": {
+			"navigationBarTitleText": "首页",
+			"enablePullDownRefresh": true
 		}
-    ],
-	"subPackages": [
-		{
+	},{
+		"path": "pages/login",
+		"style": {
+			"navigationBarTitleText": ""
+		}
+	},{
+		"path": "pages/auditing/index",
+		"style": {
+			"navigationBarTitleText": "审批",
+			"enablePullDownRefresh": true
+		}
+	}, {
+		"path": "pages/person/index",
+		"style": {
+			"navigationBarTitleText": "我的",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/home/components/car_list",
+		"style": {
+			"navigationBarTitleText": "车辆管理",
+			"enablePullDownRefresh": false
+		}
+	}],
+	"subPackages": [{
 			"root": "pages/home",
-			"pages": [
-				{
-					"path": "/oil",
-					"style": {
-						"navigationBarTitleText": "换油预约"
-					}
-				},{
-					"path": "/car",
-					"style": {
-						"navigationBarTitleText": "车辆管理"
-					}
-				},{
-					"path": "/record",
-					"style": {
-						"navigationBarTitleText": "换油记录"
-					}
+			"pages": [{
+				"path": "/oil",
+				"style": {
+					"navigationBarTitleText": "换油预约"
 				}
-			]
+			}, {
+				"path": "/car",
+				"style": {
+					"navigationBarTitleText": "车辆管理"
+				}
+			}, {
+				"path": "/record",
+				"style": {
+					"navigationBarTitleText": "换油记录"
+				}
+			}]
 		},
 		{
 			"root": "pages/auditing",
-			"pages": [
-				{
-					"path": "/details",
-					"style": {
-						"navigationBarTitleText": "审批详情"
-					}
+			"pages": [{
+				"path": "/details",
+				"style": {
+					"navigationBarTitleText": "审批详情"
 				}
-			]
+			}]
 		}
 	],
 	"tabBar": {
@@ -71,11 +64,11 @@
 		"borderStyle": "black",
 		"backgroundColor": "#F8F8F8",
 		"list": [{
-			"pagePath": "pages/home/index",
-			"iconPath": "static/home.png",
-			"selectedIconPath": "static/home_active.png",
-			"text": "首页"
-		},
+				"pagePath": "pages/home/index",
+				"iconPath": "static/home.png",
+				"selectedIconPath": "static/home_active.png",
+				"text": "首页"
+			},
 			{
 				"pagePath": "pages/auditing/index",
 				"iconPath": "static/shenpi.png",
@@ -98,14 +91,12 @@
 		"backgroundColorTop": "#F4F5F6",
 		"backgroundColorBottom": "#F4F5F6"
 	},
-	"condition" : { //模式配置，仅开发期间生效
+	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)
-		"list": [
-			{
-				"name": "", //模式名称
-				"path": "", //启动页面，必选
-				"query": "" //启动参数，在页面的onLoad函数里面得到
-			}
-		]
+		"list": [{
+			"name": "", //模式名称
+			"path": "", //启动页面，必选
+			"query": "" //启动参数，在页面的onLoad函数里面得到
+		}]
 	}
 }
