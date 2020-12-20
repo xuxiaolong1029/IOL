@@ -19,7 +19,6 @@ const store = new Vuex.Store({
 				method: 'POST',
 				data:req
 			}).then(res => {
-				console.log(res)
 				if (res.code === 0) {
 					commit('setLoginData', res.data)
 					uni.setStorage({
