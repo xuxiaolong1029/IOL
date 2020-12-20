@@ -15,19 +15,20 @@
 </template>
 
 <script>
-	import {mapState} from 'vuex'
+	import {mapState,mapMutations} from 'vuex'
 	export default {
 		computed: {
 			...mapState(['userInfo'])
 		},
 		methods: {
+			...mapMutations(['setLoginData']),
 			logout(type) {
 				uni.showModal({
 					title: '提示',
 					content: type === 1 ? '是否退出登录' : '是否退出APP',
 					success:(res)=>{
 						if (res.confirm) {
-							this.$store.commit('setLoginData',{});
+							this.setLoginData({});
 							uni.removeStorage({
 								key: 'storage_user',
 								success: (res)=>{
