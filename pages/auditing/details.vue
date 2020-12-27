@@ -5,7 +5,7 @@
 				<text class="list-label">司机：</text><text class="list-view">{{detailDate.applicant}}</text>
 			</view>
 			<view class="list">
-				<text class="list-label">车队：</text><text class="list-view">{{detailDate.fleetLeader}}</text>
+				<text class="list-label">手机：</text><text class="list-view">{{detailDate.phone}}</text>
 			</view>
 			<view class="list">
 				<text class="list-label">车牌：</text><text class="list-view">{{detailDate.plate}}</text>
@@ -13,11 +13,14 @@
 			<view class="list">
 				<text class="list-label">车型：</text><text class="list-view">{{detailDate.vehicleType}}</text>
 			</view>
-			<view class="list">
+			<!-- <view class="list">
 				<text class="list-label">申请时间：</text><text class="list-view">{{detailDate.applyTime}}</text>
-			</view>
+			</view> -->
 			<view class="list">
-				<text class="list-label">预达：</text><text class="list-view">{{detailDate.applyOilchangeTime}}</text>
+				<text class="list-label">预达时间：</text>
+				<text class="list-view">
+					{{detailDate.applyOilchangeStartTime.substr(0,10)}}&nbsp;{{detailDate.applyOilchangeStartTime.includes('08:00:00')?'上午':'下午'}}
+				</text>
 			</view>
 			<view class="list" v-if='["矿机","主管","厂长"].includes(this.userInfo.roleName)'>
 				<text class="list-label">小队副职：</text><text class="list-view">{{detailDate.fleetLeader}}</text>
@@ -30,27 +33,37 @@
 			</view>
 		</view>
 		<view class="list-button" v-if='status===0'>
-			<button @click="submit" type="primary">审核</button>
+			<button style="margin-bottom: 40rpx;" v-if="userInfo.roleName==='司机'" @click="editSubmit" type="primary">修改预约</button>
+			<button @click="submit" type="primary">{{userInfo.roleName==='司机'?'取消审批':'审批'}}</button>
 		</view>
 	</view>
 </template>
 
 <script>
 	import http from '../../plugins/network/index.js'
-	import {mapState} from 'vuex'
+	import {
+		mapState
+	} from 'vuex'
 	export default {
 		computed: {
-			...mapState(['userInfo'])
+			//...mapState(['userInfo'])
 		},
 		data() {
 			return {
 				detailDate: {},
-				status: 0
+				status: 0,
+				userInfo: {}
 			}
 		},
 		onLoad(event) {
 			const payload = event.payload;
 			this.status = Number(event.index)
+			this.userInfo = JSON.parse(uni.getStorageSync('storage_user'));
+			if (this.userInfo.roleName === '司机') {
+				uni.setNavigationBarTitle({
+					title: '预约详情'
+				})
+			}
 			// 目前在某些平台参数会被主动 decode，暂时这样处理。
 			try {
 				this.detailDate = JSON.parse(decodeURIComponent(payload));
@@ -60,19 +73,68 @@
 			uni.setNavigationBarTitle({
 				title: this.detailDate.title
 			});
-
 		},
+
 		methods: {
 			submit() {
 				uni.showModal({
 					title: '提示',
-					content: '是否开始审核',
+					content: this.userInfo.roleName === '司机' ? '是否取消审批' : '是否开始审核',
 					success: (res) => {
 						if (res.confirm) {
-							this.setAuditModal();
+							if (this.userInfo.roleName === '司机') {
+								this.cancelAudit()
+							} else {
+								this.setAuditModal();
+							}
 						} else if (res.cancel) {
 							console.log('用户点击取消')
 						}
+					}
+				});
+			},
+			editSubmit() {
+				let par = {
+					id:this.detailDate.id,
+					userId:this.detailDate.userId,
+					applicant:this.detailDate.applicant,
+					plate:this.detailDate.plate,
+					phone:this.detailDate.phone,
+					vehicleType:this.detailDate.vehicleType,
+					applyOilchangeDate:this.detailDate.applyOilchangeStartTime.substr(0,10),
+					dateRange:this.detailDate.applyOilchangeStartTime.includes('08:00:00')?0:1
+				}
+				uni.navigateTo({
+					url: `/pages/home/oil?payload=${encodeURIComponent(JSON.stringify(par))}`
+				});
+			},
+			cancelAudit() {
+				let par = {
+					id: this.detailDate.id,
+					userId: this.userInfo.userId
+				}
+				http.server({
+					url: '/api/auth/deleteAppointment',
+					method: 'POST',
+					data: par
+				}).then(res => {
+					if (res.code === 0) {
+						uni.showToast({
+							title: res.msg,
+							icon: 'none', //不要图标
+							duration: 1000, //1后消失
+							success: () => {
+								uni.switchTab({
+									url: `/pages/auditing/index?status=${type==='0'?2:1}`
+								});
+							}
+						});
+					} else {
+						uni.showToast({
+							title: res.msg,
+							icon: 'none', //不要图标
+							duration: 1000 //1后消失
+						});
 					}
 				});
 			},
@@ -141,6 +203,7 @@
 				line-height: 100rpx;
 				font-size: 32rpx;
 				position: relative;
+				display: flex;
 
 				&:after {
 					position: absolute;
@@ -152,6 +215,15 @@
 					content: '';
 					transform: scaleY(.5);
 					background-color: #c8c7cc;
+				}
+
+				.list-label {
+					display: inline-block;
+					width: 170rpx;
+				}
+
+				.list-view {
+					flex: 1;
 				}
 			}
 		}

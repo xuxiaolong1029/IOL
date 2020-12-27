@@ -24,20 +24,20 @@
 											<image class="uni-media-list-logo" :src="`../../static/ban${tabIndex+1}.png`"></image>
 											<view class="uni-media-list-body">
 												<view class="uni-media-list-text-top">
-													<text>
-														{{ value.title||'换油申请' }}
-													</text>
-													<text class="time">
-														预约：{{ value.applyOilchangeTime.substring(5,16)||''}}
-													</text>
-												</view>
-												<view class="uni-media-list-text-bottom">
 													<text>司机：{{ value.applicant }}</text>
-													<text>车队：{{ value.fleetLeader }}</text>
+													<text>{{ value.phone }}</text>
 												</view>
 												<view class="uni-media-list-text-bottom">
 													<text>车型：{{ value.vehicleType }}</text>
 													<text>车牌：{{ value.plate }}</text>
+												</view>
+												<view class="uni-media-list-text-bottom">
+													<text class="time" v-if='value.applyOilchangeStartTime'>
+														预约时间：{{value.applyOilchangeStartTime.substr(0,10)}}&nbsp;{{value.applyOilchangeStartTime.includes('08:00:00')?'上午':'下午'}}
+													</text>
+													<text v-else>
+														预约时间：
+													</text>
 												</view>
 											</view>
 										</view>
@@ -60,10 +60,12 @@
 <script>
 	import http from '../../plugins/network/index.js'
 	import uniLoadMore from '@/components/uni-load-more.vue';
-	import {mapState} from 'vuex'
+	import {
+		mapState
+	} from 'vuex'
 	export default {
 		computed: {
-			...mapState(['userInfo'])
+			//...mapState(['userInfo'])
 		},
 		components: {
 			uniLoadMore
@@ -88,21 +90,27 @@
 				}],
 				pageList: [],
 				tabIndex: 0,
-				isTap: true
+				isTap: true,
+				userInfo:{}
 			}
 		},
 		onLoad(event) {
+			this.userInfo = JSON.parse(uni.getStorageSync('storage_user'));
 			this.tabIndex = Number(event.status) || 0;
+			if (this.userInfo&&this.userInfo.roleName === '司机') {
+				uni.setNavigationBarTitle({
+					title: '预约列表'
+				})
+			}
 		},
 		onShow(event) {
-			console.log(this.userInfo);
 			uni.startPullDownRefresh();
 		},
 		onPullDownRefresh() {
 			//this.getTableData()
-			setTimeout(()=>{
+			setTimeout(() => {
 				this.getAuditingList();
-			},100)
+			}, 100)
 		},
 		onReachBottom() {
 			this.status = 'more';
@@ -139,12 +147,10 @@
 				});
 			},
 			goDetail(row, index) {
-				if (this.userInfo.roleName !== "司机") {
-					if (index === 2) return
-					uni.navigateTo({
-						url: `/pages/auditing/details?payload=${encodeURIComponent(JSON.stringify(row))}&index=${index}`
-					});
-				}
+				if (index === 2) return
+				uni.navigateTo({
+					url: `/pages/auditing/details?payload=${encodeURIComponent(JSON.stringify(row))}&index=${index}`
+				});
 			},
 			ontabtap(e) {
 				this.tabIndex = e
@@ -291,10 +297,9 @@
 					display: flex;
 					width: 100%;
 					flex-direction: row;
-
 					.uni-media-list-logo {
 						height: 150rpx;
-						width: 220rpx;
+						width: 200rpx;
 						margin-right: 20rpx;
 
 						image {
@@ -317,7 +322,7 @@
 							flex-direction: row;
 							height: 56rpx;
 							line-height: 50rpx;
-							font-size: 32rpx;
+							font-size:26rpx;
 
 							.time {
 								font-size: 26rpx;

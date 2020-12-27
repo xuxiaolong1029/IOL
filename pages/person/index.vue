@@ -18,7 +18,15 @@
 	import {mapState,mapMutations} from 'vuex'
 	export default {
 		computed: {
-			...mapState(['userInfo'])
+			//...mapState(['userInfo'])
+		},
+		data(){
+			return{
+				userInfo:{}
+			}
+		},
+		onLoad(event) {
+			this.userInfo = JSON.parse(uni.getStorageSync('storage_user'));
 		},
 		methods: {
 			...mapMutations(['setLoginData']),

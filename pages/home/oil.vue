@@ -12,10 +12,17 @@
 						<input class="form-column-input" v-model="oilForm.plate" name="plate" placeholder="请输入车牌" />
 					</view>
 					<view class="form-column-list">
-						<text>到达时间</text>
-						<picker class="form-column-input" mode="date" :value="oilForm.applyTime" :start="startDate" :end="endDate"
+						<text>到达日期</text>
+						<picker class="form-column-input" mode="date" :value="oilForm.applyOilchangeDate" :start="startDate" :end="endDate"
 						 @change="bindDateChange">
-							<view class="uni-input">{{oilForm.applyTime}}</view>
+							<view class="uni-input">{{oilForm.applyOilchangeDate}}</view>
+						</picker>
+					</view>
+					<view class="form-column-list">
+						<text>上午/下午</text>
+						<picker class="form-column-input" @change="bindDateRange" :value="oilForm.dateRange" :range="multiArray"
+						 range-key="name">
+							<view class="uni-input">{{multiArray[oilForm.dateRange].name}}</view>
 						</picker>
 					</view>
 					<view class="form-column-list">
@@ -42,26 +49,22 @@
 <script>
 	import UniSteps from "../../components/uni-steps.vue"
 	import http from '../../plugins/network/index.js'
-	import {mapState} from 'vuex'
-	function getDate(type) {
-		const date = new Date();
+	import {
+		mapState
+	} from 'vuex'
+
+	function getFormDate(dayNum) {
+		const date = new Date(Date.parse(new Date()) + dayNum * 24 * 60 * 60 * 1000);
 		let year = date.getFullYear();
 		let month = date.getMonth() + 1;
 		let day = date.getDate();
-
-		if (type === 'start') {
-			year = year;
-		} else if (type === 'end') {
-			year = year + 5;
-		}
 		month = month > 9 ? month : '0' + month;;
 		day = day > 9 ? day : '0' + day;
-
 		return `${year}-${month}-${day}`;
 	}
 	export default {
 		computed: {
-			...mapState(['userInfo'])
+			//...mapState(['userInfo'])
 		},
 		components: {
 			'uni-steps': UniSteps
@@ -69,19 +72,33 @@
 		data() {
 			return {
 				active: -1,
+				multiArray: [{
+					index: 1,
+					name: '上午'
+				}, {
+					index: 2,
+					name: '下午'
+				}],
 				oilForm: {
 					vehicleType: '',
 					plate: '',
-					applyTime: '',
+					applyOilchangeDate: '',
+					dateRange: 0,
 					applicant: '',
 					phone: ''
 				},
 				auditList: [],
-				startDate: getDate('start'),
-				endDate: getDate('end')
+				startDate: getFormDate(0),
+				endDate: getFormDate(7),
+				userInfo: {},
+				payload: {}
 			}
 		},
-		onShow() {
+		onLoad(event) {
+			this.oilForm = {
+				...JSON.parse(decodeURIComponent(event.payload))
+			}
+			this.userInfo = JSON.parse(uni.getStorageSync('storage_user'));
 			if (this.userInfo.roleName === '司机') {
 				this.auditList = [{
 					title: '审批人-小队副职'
@@ -103,7 +120,7 @@
 			}
 		},
 		methods: {
-			formSubmit: function(e) {
+			formSubmit(e) {
 				//定义表单规则
 				var rules = [{
 						name: "vehicleType",
@@ -116,9 +133,9 @@
 						errorMsg: "请输入车牌"
 					},
 					{
-						name: "applyTime",
+						name: "applyOilchangeDate",
 						checkType: "string",
-						errorMsg: "请输入到达时间"
+						errorMsg: "请输入到达日期"
 					}, {
 						name: "applicant",
 						checkType: "string",
@@ -146,7 +163,7 @@
 					...this.oilForm
 				}
 				http.server({
-					url: '/api/auth/appointment',
+					url: this.oilForm.id?'/api/auth/editAppointment':'/api/auth/appointment',
 					method: 'POST',
 					data: par
 				}).then(res => {
@@ -171,7 +188,10 @@
 				});
 			},
 			bindDateChange(v) {
-				this.oilForm.applyTime = v.detail.value;
+				this.oilForm.applyOilchangeDate = v.detail.value;
+			},
+			bindDateRange(v) {
+				this.oilForm.dateRange = v.detail.value;
 			}
 		}
 	}

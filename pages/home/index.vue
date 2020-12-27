@@ -26,7 +26,7 @@
 	import {mapState} from 'vuex'
 	export default {
 		computed: {
-			...mapState(['userInfo'])
+			//...mapState(['userInfo'])
 		},
 		data() {
 			return {
@@ -46,15 +46,21 @@
 				autoplay: true,
 				interval: 4000,
 				duration: 500,
+				userInfo:{}
 			}
 		},
-		onShow() {
+		onLoad() {
+			this.userInfo = JSON.parse(uni.getStorageSync('storage_user'));
 			if(Object.keys(this.userInfo).length===0){
 				uni.navigateTo({
 					url: "/pages/login"
 				});
 			}else{
 				if (this.userInfo.roleName === '司机') {
+					uni.setTabBarItem({
+					  index:1,
+					  text: '预约'
+					})
 					this.subMenu = [{
 							path: "oil",
 							title: "换油预约",
