@@ -5,12 +5,12 @@
 			"navigationBarTitleText": "首页",
 			"enablePullDownRefresh": true
 		}
-	},{
+	}, {
 		"path": "pages/login",
 		"style": {
 			"navigationBarTitleText": ""
 		}
-	},{
+	}, {
 		"path": "pages/auditing/index",
 		"style": {
 			"navigationBarTitleText": "审批",

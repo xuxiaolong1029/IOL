@@ -102,6 +102,7 @@
 					uni.showToast({title: "请输入密码",icon: 'none', duration: 1000});
 					return
 				}
+				
 				this.getLoginData(this.inputForm);
 			}
 		}

@@ -34,7 +34,7 @@
 		</view>
 		<view class="list-button" v-if='status===0'>
 			<button style="margin-bottom: 40rpx;" v-if="userInfo.roleName==='司机'" @click="editSubmit" type="primary">修改预约</button>
-			<button @click="submit" type="primary">{{userInfo.roleName==='司机'?'取消审批':'审批'}}</button>
+			<button @click="submit" type="primary">{{userInfo.roleName==='司机'?'取消预约':'审批'}}</button>
 		</view>
 	</view>
 </template>

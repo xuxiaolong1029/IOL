@@ -41,9 +41,9 @@
 								key: 'storage_user',
 								success: (res)=>{
 									if (type === 1) {
-										uni.navigateTo({
-											url: "/pages/login"
-										});
+										uni.redirectTo({
+											url: '/pages/login'
+										})
 									} else {
 										if (uni.getSystemInfoSync().platform == 'ios') {
 											plus.ios.import("UIApplication").sharedApplication().performSelector("exit")
